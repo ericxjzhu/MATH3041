@@ -41,6 +41,7 @@ Averaged	Row
 artic sea ice
 
 sea level rise (mm):
+for global sea level rise the 3 mnthly mean is used
 dataset			Row
 - avg			O
 - church and white	M
