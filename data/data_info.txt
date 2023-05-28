@@ -48,7 +48,7 @@ dataset			Row
 - uni hawaii		N
 			
 			
-url: https://ourworldindata.org/explorers/climate-change?facet=none&country=ATA~Gulkana+Glacier~Lemon+Creek+Glacier~OWID_NAM~South+Cascade+Glacier~Wolverine+Glacier~OWID_WRL&Metric=Snow+cover&Long-run+series%3F=false
+url for data above: https://ourworldindata.org/explorers/climate-change
 
 ----
 temperature-anomaly.csv
@@ -58,12 +58,12 @@ temperature-anomaly.csv
 annual-co-emissions-by-region.csv
 - annual CO2 emmsions (billion tonnes) for each country from 1750 to 2021
 
-url: https://ourworldindata.org/co2-and-greenhouse-gas-emissions#which-countries-have-set-net-zero-emissions-targets
+url for data above: https://ourworldindata.org/co2-and-greenhouse-gas-emissions#which-countries-have-set-net-zero-emissions-targets
 
 
 ----
 gdp-per-capita-maddison-2020.csv
 - includes yearly averages of GDP (per capitia) for each country from 1820 to 2018
 
-url: https://ourworldindata.org/economic-growth
+url for data above: https://ourworldindata.org/economic-growth
 
