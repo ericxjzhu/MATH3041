@@ -60,13 +60,10 @@ def r_squared(xx,yy,m,c):
 # run the following bash script on the file climate-change_2.csv to get scraped data that we need for ph
 # grep -E 'World' climate-change_2.csv | cut -f1,2,10,11 -d',' | sed -E '/,$/d' > ph.csv
 
-data_ph = pd.read_csv("data\ph.csv")
-
+data_ph = pd.read_csv("ph.csv")
 
 # The row values where the entity is World
 row_values_ph = np.where(data_ph['Entity']=='World')[0]
-
-# total palm oil production for the world 
 world_ph_annual=data_ph['Annual average'][row_values_ph[0]:row_values_ph[-1]]
 years_ph=data_ph['Date'][row_values_ph[0]:row_values_ph[-1]] # associated dates
 for index, value in enumerate(years_ph):
@@ -75,16 +72,14 @@ for index, value in enumerate(years_ph):
 url = 'https://raw.githubusercontent.com/janzika/MATH3041/main/data/annual-co-emissions-by-region.csv'
 data_emissions = pd.read_csv(url)
 
-# The row values where the entity is World
 row_values_emissions = np.where((data_emissions['Entity']=='World'))[0]
-
 
 # annual CO2 emmsions (billion tonnes) for each country from 1750 to 2021
 world_emissions=data_emissions['Annual CO₂ emissions (zero filled)'][row_values_emissions[0]:row_values_emissions[-1]]
 years_emissions=data_emissions['Year'][row_values_emissions[0]:row_values_emissions[-1]] # associated years
 
 # Plot both graphs separatley
-# plot palm oil produciton data
+# plot ocaen pH graph
 plt.figure("Separate Graphs")
 plt.subplot(1,2,1)
 plt.plot(years_ph,world_ph_annual,color='g',label='Ocean pH')
@@ -92,16 +87,17 @@ plt.xlabel('Year')
 plt.ylabel('Ocean pH levels')
 plt.title('Annual pH measurement')
 
-# plot palm oil produciton data log
+# Plot CO2 emissions graph
 plt.subplot(1,2,2)
-plt.semilogy(years_emissions,world_emissions,color='b',label='C02 emissions') 
+plt.plot(years_emissions,world_emissions,color='b',label='C02 emissions') 
 plt.xlabel('Year')
-plt.ylabel('log CO2 emmsions (log(Tonnes))')
+plt.ylabel('CO2 emissions (Tonnes)')
 plt.title('Annual CO2 emissions')
 
 #########################################################################################
 
-xval = np.linspace(1988,2030,1000) # define  values from 1988 to 2030
+xval = np.linspace(1988,2030,1000)
+# row_values_emissions_comparison = np.where((data_emissions['Entity']=='World'))[0]
 row_values_emissions_comparison = np.where((data_emissions['Entity']=='World') & (data_emissions['Year']>=1988))[0] # shorten years as pH mesurement only starts in 1988
 world_emissions_comparison=data_emissions['Annual CO₂ emissions (zero filled)'][row_values_emissions_comparison[0]:row_values_emissions_comparison[-1]]
 years_emissions_comparison=data_emissions['Year'][row_values_emissions_comparison[0]:row_values_emissions_comparison[-1]] # associated years
@@ -144,19 +140,5 @@ print(r_squared(years_emissions_comparison,world_emissions_comparison,m_world_em
 # 0.950557992515578
 # CO2 world
 # 0.9542271797924022
-
-fig, ax = plt.subplots()
-
-lns1 = ax.plot(years_ph,world_ph_annual,color='g',label='Ocean pH')
-ax.set_ylabel('Ocean pH levels')
-ax.set_xlabel('Year')
-
-ax2=ax.twinx()
-# make a plot with different y-axis using second axis object
-lns2=plt.plot(years_emissions_comparison,world_emissions_comparison,color='b',label='C02 emissions') 
-ax2.set_ylabel('CO2 emmsions (Tonnes)')
-
-# added these three lines
-fig.legend(['Annual world pH','World CO2 concentration'],loc='upper left')
 
 plt.show()
