@@ -60,7 +60,7 @@ def r_squared(xx,yy,m,c):
 # run the following bash script on the file climate-change_2.csv to get scraped data that we need for ph
 # grep -E 'World' climate-change_2.csv | cut -f1,2,10,11 -d',' | sed -E '/,$/d' > ph.csv
 
-data_ph = pd.read_csv("ph.csv")
+data_ph = pd.read_csv("data/ph.csv")
 
 # The row values where the entity is World
 row_values_ph = np.where(data_ph['Entity']=='World')[0]
@@ -82,20 +82,6 @@ years_emissions=data_emissions['Year'][row_values_emissions[0]:row_values_emissi
 # plot ocaen pH graph
 plt.figure("Separate Graphs")
 plt.subplot(1,2,1)
-plt.plot(years_ph,world_ph_annual,color='g',label='Ocean pH')
-plt.xlabel('Year')
-plt.ylabel('Ocean pH levels')
-plt.title('Annual pH measurement')
-
-# Plot CO2 emissions graph
-plt.subplot(1,2,2)
-plt.plot(years_emissions,world_emissions,color='b',label='C02 emissions') 
-plt.xlabel('Year')
-plt.ylabel('CO2 emissions (Tonnes)')
-plt.title('Annual CO2 emissions')
-
-#########################################################################################
-
 xval = np.linspace(1988,2030,1000)
 # row_values_emissions_comparison = np.where((data_emissions['Entity']=='World'))[0]
 row_values_emissions_comparison = np.where((data_emissions['Entity']=='World') & (data_emissions['Year']>=1988))[0] # shorten years as pH mesurement only starts in 1988
@@ -108,9 +94,6 @@ m_world_ph,b_world_ph = linear_fit(years_ph,world_ph_annual)
 yval_world_ph = m_world_ph*xval + b_world_ph # find y values 
 
 # define figure size
-plt.figure("Line of best fit")
-
-plt.subplot(1,2,1)
 plt.scatter(years_ph,world_ph_annual,color='r',s=12)
 plt.plot(xval,yval_world_ph)
 plt.title('Annual World ph')
@@ -118,27 +101,18 @@ plt.legend(['Actual','Predicted'])
 plt.xlabel('Years')
 plt.ylabel('Ocean pH levels')
 
-# Determine constants for CO2 production
-m_world_emissions,b_world_emissions = linear_fit(years_emissions_comparison,world_emissions_comparison)
-yval_world_emissions = m_world_emissions*xval + b_world_emissions # find y values 
-
+# Plot CO2 emissions graph
 plt.subplot(1,2,2)
-plt.scatter(years_emissions_comparison,world_emissions_comparison,color='r',s=12)
-plt.plot(xval,yval_world_emissions)
+plt.plot(years_emissions,world_emissions,color='b',label='C02 emissions') 
+plt.xlabel('Year')
+plt.ylabel('CO2 emissions (Tonnes)')
 plt.title('Annual CO2 emissions')
-plt.legend(['Actual','Predicted'])
-plt.xlabel('Years')
-plt.ylabel('log CO2 emmsions (log(Tonnes))')
 
 #########################################################################################
 
 print('Annual ph world')
 print(r_squared(years_ph,world_ph_annual,m_world_ph,b_world_ph))
-print('CO2 world')
-print(r_squared(years_emissions_comparison,world_emissions_comparison,m_world_emissions,b_world_emissions))
 # Annual ph world
 # 0.950557992515578
-# CO2 world
-# 0.9542271797924022
 
 plt.show()
