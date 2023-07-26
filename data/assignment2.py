@@ -74,5 +74,6 @@ for year in years_gdp:
 print(years_gdp, ratio)
 plt.figure("Ratio of emissions over gdp per capita")
 plt.plot(years_gdp, ratio)
+plt.title('Ratio of emissions over gdp per capita of the world')
 plt.show()
 
