@@ -45,7 +45,7 @@ plt.xlabel('Years')
 plt.ylabel('log Population')
 
 plt.figure("Population UN High Projection Scenario")
-plt.scatter(years, population, color='g')
+plt.scatter(years, population, color='g', s=4)
 plt.plot(years, y_cal2)
 plt.title('Population')
 plt.xlabel('Years')
