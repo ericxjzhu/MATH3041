@@ -20,6 +20,26 @@ def linear_fit(xx,yy):
 
     return(m, b) # return coefficents
 
+# Calculating R2 coefficient
+def r_squared(xx,yy,m,c):
+    X = xx.values
+    Y = yy.values
+    # Mean X and Y
+    mean_x = np.mean(X)
+    mean_y = np.mean(Y)
+    # Total number of values
+    n = len(X)
+
+    ss_tot=0
+    ss_res=0
+
+    for i in range(n):
+        y_pred = c + m * X[i]
+        ss_tot += (Y[i] - mean_y) ** 2
+        ss_res += (Y[i] - y_pred) ** 2
+        r2 = 1 - (ss_res/ss_tot)
+    return(r2)
+
 data = pd.read_csv("data/population-high.csv")
 
 row = np.where(data['Country name'] == 'World')[0]
@@ -36,6 +56,9 @@ m2, b2 = linear_fit(years, population)
 print("UN High Projection Scenario")
 print(f"y = {m2}x + {b2}")
 y_cal2 = m2*years + b2
+
+r2 = r_squared(years,population,m2,b2)
+print(r2)
 
 plt.figure("Population log UN High Projection Scenario")
 plt.scatter(years, log_population, color='r')
