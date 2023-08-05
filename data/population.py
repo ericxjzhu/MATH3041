@@ -1,7 +1,6 @@
 import pandas as pd # For reading and manipulating 2D data (like spreadsheets)
 import numpy as np # For doing numerical calculations (literally NUMerical PYthon)
 import matplotlib.pyplot as plt # For making graphs
-from pprint import pprint
 
 # Computing X and Y
 def linear_fit(xx,yy):
