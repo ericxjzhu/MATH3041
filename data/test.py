@@ -1,7 +1,6 @@
 import pandas as pd # For reading and manipulating 2D data (like spreadsheets)
 import numpy as np # For doing numerical calculations (literally NUMerical PYthon)
 import matplotlib.pyplot as plt # For making graphs
-from IPython.display import display
 from datetime import datetime as dt
 import time
 
@@ -63,7 +62,6 @@ m, b = linear_fit(x, Y_plots)
 print(f"y = {m}x + {b}")
 y_cal = m*x + b
 
-# Plot all 3 linear fits side by side 
 plt.figure("Test")
 plt.scatter(x, Y_plots, color='r')
 plt.plot(x, y_cal)

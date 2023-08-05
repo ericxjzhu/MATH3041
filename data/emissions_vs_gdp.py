@@ -31,11 +31,15 @@ for year in years_gdp_capita:
     co2 = data_co['Annual CO2 emissions (zero filled)'][co2_row[0]]
     ratio_capita.append(co2/gdp)
 
-plt.figure("Ratio of emissions over gdp")
+plt.figure("Ratio of CO2 emissions over GDP")
 plt.plot(years_gdp, ratio)
-plt.title('Ratio of emissions over gdp of the world')
+plt.title('Ratio of emissions over GDP of the world')
+plt.xlabel('GDP of the world')
+plt.ylabel('CO2 emissions')
 
-plt.figure("Ratio of emissions over gdp per capita")
+plt.figure("Ratio of emissions over GDP per capita")
 plt.plot(years_gdp_capita, ratio_capita)
-plt.title('Ratio of emissions over gdp per capita of the world')
+plt.title('Ratio of emissions over GDP per capita of the world')
+plt.xlabel('GDP per capita of the world')
+plt.ylabel('CO2 emissions')
 plt.show()
