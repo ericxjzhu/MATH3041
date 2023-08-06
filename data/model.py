@@ -32,13 +32,20 @@ alernate = {
     't0': 2004,
 }
 
+emissions_intensity = []
 r2_emissions = []
 years_projection = np.linspace(1880,2100,1000)
+years_intensity = np.linspace(2021, 2100, 1000)
 co2_projection = []
 
 for name, goal in goals.items():
     r2_emissions.append(goal['L'] / (1 + np.exp(goal['a'] * (years - goal['t0']))))
     co2_projection.append(goal['L'] / (1 + np.exp(goal['a'] * (years_projection - goal['t0']))))
+    dE = (-goal['L'] * goal['a'] * np.exp(goal['a'] * (years_intensity - goal['t0'])))/((1 + np.exp(goal['a'] * (years_intensity - goal['t0'])))**2)
+    G = 12282 * np.exp(years_intensity * np.log(1.05))
+    P = 84590486.78003466 * years_intensity - 162930039046.18018
+    print(P)
+    emissions_intensity.append(dE/(G * P))
 
 plt.figure(f'Target Models')
 for i in range(len(co2_projection)):
@@ -60,6 +67,14 @@ plt.xlabel('Year')
 plt.ylabel('Cumulative CO2 Emissions (billion tons)')
 print(f'Target 3 Alternate R2 score = {r2_score(co2, r2_alternate)}')
 
-
+plt.figure(f'Emissions Intensity Models')
+for i in range(len(emissions_intensity)):
+    plt.subplot(1,3,i+1)
+    plt.plot(years_intensity, emissions_intensity[i])
+    plt.xlim(2021)
+    plt.ylim(0, 5*10**(-47))
+    plt.title(f'Target {i + 1} Energy Intensity')
+    plt.xlabel('Year')
+    plt.ylabel('Energy Intensity')
 
 plt.show()

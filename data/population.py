@@ -45,23 +45,13 @@ row = np.where(data['Country name'] == 'World')[0]
 years = data['Year'][row[0]:row[-1]]
 population = data['Population'][row[0]:row[-1]]
 
-log_population = np.log(population)
-m1, b1 = linear_fit(years, log_population)
-y_cal1 = m1*years + b1
 m2, b2 = linear_fit(years, population)
 print("UN High Projection Scenario")
-print(f"y = {m2}x + {b2}")
+print(f"y = {m2}x + {b2}") # y = 84590486.78003466x + -162930039046.18018
 y_cal2 = m2*years + b2
 
-r2 = r_squared(years,population,m2,b2)
+r2 = r_squared(years,population,m2,b2) # 0.9990243646492619
 print(r2)
-
-# plt.figure("Population log UN High Projection Scenario")
-# plt.scatter(years, log_population, color='r')
-# plt.plot(years, y_cal1)
-# plt.title('Population log')
-# plt.xlabel('Years')
-# plt.ylabel('log Population')
 
 plt.figure("Population UN High Projection Scenario")
 plt.scatter(years, population, color='g', s=4)
